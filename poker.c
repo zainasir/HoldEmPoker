@@ -40,7 +40,7 @@ struct card parse(const char *card)
 /* Count the number of occurrences of each card 2 through Ace */
 void count_cards(struct hand *h)
 {
-	/* TASK 6: For each card in the hand, increment the card_count for that card. */
+	/* For each card in the hand, increment the card_count for that card. */
 	int i;
 
 	/* Set each count to 0 */
@@ -51,13 +51,11 @@ void count_cards(struct hand *h)
 		unsigned int index = (int) h -> cards[i].val;
 		h -> card_count[index - 2] += 1;
 	}
-	
-	/* ref_count_cards(h); */ 
 }
 
 int is_flush(struct hand *h)
 {
-	/* TASK 9: Implement is_flush(). A hand is a flush if all the cards are of the same suit */
+	/* Implement is_flush(). A hand is a flush if all the cards are of the same suit */
 	/* Return 1 if flush, 0 otherwise */
 
 	/* Save the suit of the first card */
@@ -70,12 +68,8 @@ int is_flush(struct hand *h)
 			return 0;
 		}
 	}
-
-	/* Is flush if no mismatch found, so return 0 */
-	return 1;
 	
-	/* return ref_is_flush(h); */
-
+	return 1;
 }
 
 int is_straight(struct hand *h)
@@ -107,8 +101,6 @@ int is_straight(struct hand *h)
 			}
 
 	return 0;
-	/* return ref_is_straight(h); */
-
 }
 		
 /* This important function converts a player's hand into weighted unsigned long number. Larger the number, stronger the hand. 
@@ -122,7 +114,7 @@ Then, depending on the number of occurrences, the corresponding bit in the bit-v
 In order to find the winner, a simple comparison of the bit vectors (i.e., unsigned long integers) will suffice! */
 void eval_strength(struct hand *h)
 {
-	/* TASK 5: Implement the eval_strength function */
+	/* Implement the eval_strength function */
 	count_cards(h);
 	
 	int i;
@@ -166,14 +158,12 @@ void eval_strength(struct hand *h)
 	if (is_flush(h) && is_straight(h)){	
 	 	h->vector |= (1UL << 56);
 	}
-	/* ref_eval_strength(h); */
 }
 
 void eval_players_best_hand(struct player *p)
 {
-	/* TASK 10: For each hand in the 'hands' array of the player, use eval_strength to evaluate the strength of the hand */
+	/* For each hand in the 'hands' array of the player, use eval_strength to evaluate the strength of the hand */
 	/*       Point best_hand to the strongest hand. */
-	/*       HINT: eval_strength will set the hands vector according to its strength. Larger the vector, stronger the hand. */
 	
 	/* Eval strength for each hand */
 	int i;
@@ -189,28 +179,24 @@ void eval_players_best_hand(struct player *p)
 			max = p -> hands[i].vector;
 			p -> best_hand = &(p -> hands[i]);
 		}
-	}
-	
-	/* ref_eval_players_best_hand(p); */ 
+	} 
 }
 
 void copy_card(struct card *dst, struct card *src)
 {
-	/* TASK 3: Implement function copy_card that copies a card structure from src to dst. */
+	/* Implement function copy_card that copies a card structure from src to dst. */
 	dst -> val = src -> val;
 	dst -> suit = src -> suit;
-
-	/* ref_copy_card(dst, src); */ 
 }
 
 void initialize_player(struct player *p, struct card *player_cards, struct card *community_cards)
 {
 	memset(p, 0, sizeof(struct player));
 
-	/* There are 21 possible 5 card combinations (i.e., 7C5) in Pc1 Pc2 Cc1 Cc2 Cc3 Cc4 Cc5 */
-	/* TASK 4: Initialize the 'hands' array in the player structure with the cards. 
-	 *       Each element of the hands array will contain one possible combination of the hand.
-	 *       Use copy_card function.
+	/* There are 21 possible 5 card combinations. */
+	/* Initialize the 'hands' array in the player structure with the cards. 
+	 * Each element of the hands array will contain one possible combination of the hand.
+	 * Use copy_card function.
 	 */ 
 
 
@@ -360,9 +346,6 @@ void initialize_player(struct player *p, struct card *player_cards, struct card 
 	copy_card(&(p -> hands[20].cards[2]),&(community_cards[2]));
 	copy_card(&(p -> hands[20].cards[3]),&(community_cards[3]));
 	copy_card(&(p -> hands[20].cards[4]),&(community_cards[4]));
-
-	
-	/* ref_initialize_player(p, player_cards, community_cards); */
 }
 
 /* Parse each hand in the input file, evaluate the strengths of hands and identify a winner by comparing the weighted vectors */
@@ -396,7 +379,7 @@ void process_input(FILE *fp)
 		eval_players_best_hand(&P1);
 		eval_players_best_hand(&P2);
 
-		/* TASK 11: Check which player has the strongest hand and print either "Player 1 wins" or "Player 2 wins" */
+		/* Check which player has the strongest hand and print either "Player 1 wins" or "Player 2 wins" */
 		if (P1.best_hand -> vector > P2.best_hand -> vector) {
 			printf("Player 1 wins\n");
 		}
