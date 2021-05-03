@@ -5,7 +5,7 @@ This is a repository of the Poker Project I completed as part of the CS 220 (Arc
 This project's aim was to create a program that evaluates the winner of a 2-player Texas Holdem' poker game. Final program was tested on 100,000 inputs and was able to successfuly decide the winning hand for 100% of the inputs.
 
 Instructions:  
-- Compile: `gcc poker.c -o poker lib_poker_ref.a -ansi -g`
+- Compile: `gcc poker.c -o poker -ansi -g`
 - Run: `./poker sample_input > sample_output`
 
 Disclaimer:  
